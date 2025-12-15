@@ -3,232 +3,195 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DREAM CATCHER ROLEPLAY</title>
+  <title>Dream Catcher Roleplay</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
   <style>
-    * {margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
+    *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
+    body{background:#04160f;color:#eafff7;overflow-x:hidden}
+    a{text-decoration:none;color:inherit}
 
-    body {
-      background: radial-gradient(circle at top, #0f3d2e, #061f17 70%);
-      color: #eafff7;
-      min-height: 100vh;
-      overflow-x: hidden;
+    nav{
+      position:sticky;top:0;z-index:10;
+      background:rgba(0,0,0,.6);backdrop-filter:blur(10px);
+      display:flex;justify-content:space-between;align-items:center;
+      padding:15px 40px;border-bottom:1px solid rgba(0,255,136,.2)
+    }
+    nav h2{color:#00ff88}
+    nav a{margin-left:20px;font-weight:500}
+
+    .music-control{
+  position:fixed;
+  bottom:25px;
+  right:25px;
+  z-index:999;
+}
+
+.btn.discord{
+  background:linear-gradient(135deg,#5865F2,#404EED);
+  color:#fff;
+  box-shadow:0 0 25px rgba(88,101,242,.6);
+}
+
+
+.music-control button{
+  background:linear-gradient(135deg,#00ff88,#00cc66);
+  border:none;
+  padding:12px 18px;
+  border-radius:50px;
+  font-weight:600;
+  cursor:pointer;
+  box-shadow:0 0 20px rgba(0,255,136,.6);
+  transition:.25s;
+}
+
+.buttons{
+  position:relative;
+  z-index:5;
+}
+
+header{
+  position:relative;
+  z-index:2;
+}
+
+
+.music-control button:hover{
+  transform:scale(1.1);
+}
+
+
+    header{
+      min-height:90vh;
+      display:flex;flex-direction:column;align-items:center;justify-content:center;
+      text-align:center;position:relative
     }
 
-    header {
-      text-align: center;
-      padding: 70px 20px;
-      animation: fadeDown 1.2s ease;
-    }
+    canvas{
+  position:absolute;
+  inset:0;
+  z-index:0;
+  pointer-events:none; /* ⬅️ INI KUNCI */
+}
 
-    header h1 {
-      font-size: 3.2rem;
-      color: #00ff88;
-      text-shadow: 0 0 25px rgba(0,255,136,.7);
-    }
 
-    header p {opacity:.9;margin-top:10px}
+    header img{width:140px;margin-bottom:20px;filter:drop-shadow(0 0 25px #00ff88)}
+    header h1{font-size:3.5rem;color:#00ff88;text-shadow:0 0 30px rgba(0,255,136,.8)}
+    header p{opacity:.9;margin-top:10px}
 
-    @keyframes fadeDown {
-      from {opacity:0;transform:translateY(-40px)}
-      to {opacity:1;transform:translateY(0)}
-    }
-
-    .container {max-width:1100px;margin:auto;padding:20px}
-
-    .card {
-      background: rgba(0, 255, 136, 0.05);
-      border: 1px solid rgba(0, 255, 136, 0.2);
-      border-radius: 18px;
-      padding: 30px;
-      margin-bottom: 30px;
-      box-shadow: 0 0 30px rgba(0,255,136,.15);
-      animation: fadeUp 1s ease;
-    }
-
-    @keyframes fadeUp {
-      from {opacity:0;transform:translateY(40px)}
-      to {opacity:1;transform:translateY(0)}
-    }
-
-    .card h2 {
-      color:#00ff88;
-      margin-bottom:20px;
-    }
-
-    .info-grid {
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-      gap:20px;
-    }
-
-    .info-item {
-      background: rgba(0,0,0,.4);
-      border-radius:14px;
-      padding:20px;
-      text-align:center;
-      transition:.3s;
-    }
-
-    .info-item:hover {
-      transform:scale(1.05);
-      box-shadow:0 0 25px rgba(0,255,136,.4);
-    }
-
-    .info-item span {
-      display:block;
-      margin-top:10px;
-      font-size:1.1rem;
-      color:#00ff88;
-      font-weight:600;
-    }
-
-    ul li {margin:10px 0}
-
-    .buttons {
-      display:flex;
-      flex-wrap:wrap;
-      gap:15px;
-      margin-top:20px;
-    }
-
-    .btn {
-      padding:14px 30px;
-      border-radius:50px;
-      border:none;
-      cursor:pointer;
-      font-weight:600;
+    .btn{
+      margin-top:30px;padding:15px 35px;border-radius:50px;
       background:linear-gradient(135deg,#00ff88,#00cc66);
-      color:#003d1f;
-      box-shadow:0 0 20px rgba(0,255,136,.6);
-      transition:.25s;
-      position:relative;
-      overflow:hidden;
+      color:#003d1f;font-weight:600;box-shadow:0 0 25px rgba(0,255,136,.7);
+      transition:.25s
     }
+    .btn:hover{transform:scale(1.05)}
 
-    .btn::after {
-      content:"";
-      position:absolute;
-      inset:0;
-      background:radial-gradient(circle,rgba(255,255,255,.4),transparent 60%);
-      opacity:0;
-      transition:.3s;
+    .container{max-width:1100px;margin:auto;padding:60px 20px}
+
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:25px}
+
+    .card{
+      background:rgba(0,255,136,.05);
+      border:1px solid rgba(0,255,136,.2);
+      border-radius:18px;padding:25px;text-align:center;
+      box-shadow:0 0 25px rgba(0,255,136,.15);
+      transition:.3s
     }
+    .card:hover{transform:translateY(-8px);box-shadow:0 0 40px rgba(0,255,136,.4)}
 
-    .btn:hover::after {opacity:1}
+    .card h3{color:#00ff88;margin-bottom:10px}
 
-    .btn:active {transform:scale(.92)}
-
-    .stats {
-      display:flex;
-      justify-content:space-around;
-      margin-top:20px;
-      flex-wrap:wrap;
-      gap:15px;
+    footer{
+      background:#020b08;padding:40px 20px;text-align:center
     }
-
-    .stat {
-      text-align:center;
-    }
-
-    .stat h3 {
-      font-size:2rem;
-      color:#00ff88;
-      text-shadow:0 0 15px rgba(0,255,136,.6);
-    }
-
-    footer {
-      text-align:center;
-      padding:20px;
-      opacity:.6;
-      font-size:.9rem;
-    }
-  /* background particles */
-    canvas{position:fixed;inset:0;z-index:-1}
+    footer p{opacity:.7;max-width:800px;margin:auto}
   </style>
 </head>
 <body>
-<canvas id="bg"></canvas>
+
+<nav>
+  <h2>DCRP</h2>
+  <div>
+    <a href="index.html">Home</a>
+    <a href="factions.html">Factions</a>
+    <a href="rules.html">Rules</a>
+    <a href="staff.html">Staff</a>
+  </div>
+</nav>
 
 <header>
-  <img src="https://i.imgur.com/9XqQZQF.png" alt="Dream Catcher RP Logo" style="width:120px;margin-bottom:20px;filter:drop-shadow(0 0 20px #00ff88)">
+  <canvas id="bg"></canvas>
+  <img src="logo.png" alt="Dream Catcher RP">
   <h1>DREAM CATCHER ROLEPLAY</h1>
   <p>Roleplay Indonesia • Realistic • Premium Experience</p>
-</header>
-
-<div class="container">
-
-  <div class="card">
-    <h2>Server Information</h2>
-    <div class="info-grid">
-      <div class="info-item">IP Server<span id="ip">127.0.0.1:7777</span></div>
-      <div class="info-item">Gamemode<span>Lrp And Inferno</span></div>
-      <div class="info-item">Map<span>Los Santos</span></div>
-      <div class="info-item">Status<span style="color:#00ff88">ONLINE</span></div>
-    </div>
-  </div>
-
-  <div class="card">
-    <h2>Server Stats</h2>
-    <div class="stats">
-      <div class="stat"><h3 id="online">128</h3><p>Player Online</p></div>
-      <div class="stat"><h3>500</h3><p>Slot</p></div>
-      <div class="stat"><h3>45 ms</h3><p>Ping Avg</p></div>
-    </div>
-  </div>
-
-  <div class="card">
-    <h2>Join Server</h2>
-    <div class="buttons">
-      <button class="btn" onclick="joinSAMP()">🎮 Join SA-MP</button>
-    <a class="btn" href="https://discord.gg/https://discord.gg/e9KXwrQ9f9" target="_blank">💬 Discord</a>
-      <button class="btn">🌐 Forum</button>
-    </div>
-  </div>
-
+<div class="buttons">
+  <a href="samp://IP:PORT" class="btn">🎮 Join Server</a>
+  <a href="https://discord.gg/XzPCE4mV" target="_blank" class="btn discord">
+  💬 Join Discord
+  </a>
 </div>
 
+</header>
+
+<!-- BACKSOUND -->
+<audio id="bgm" loop>
+  <source src="assets/audio/bintang5.mp3" type="audio/mpeg">
+</audio>
+
+<!-- MUSIC BUTTON -->
+<div class="music-control">
+  <button onclick="toggleMusic()">🎵 Music</button>
+</div>
+
+<script>
+  const bgm = document.getElementById('bgm');
+  let playing = false;
+
+  function toggleMusic(){
+    if(!playing){
+      bgm.volume = 0.4;
+      bgm.play();
+      playing = true;
+    } else {
+      bgm.pause();
+      playing = false;
+    }
+  }
+</script>
+
+
+<section class="container">
+  <div class="grid">
+    <div class="card"><h3>🟢 Server Status</h3><p id="status">ONLINE</p></div>
+    <div class="card"><h3>👥 Player</h3><p id="player">Loading...</p></div>
+    <div class="card"><h3>📡 Ping</h3><p id="ping">-- ms</p></div>
+  </div>
+</section>
+
 <footer>
-  <p><strong>DREAM CATCHER ROLEPLAY</strong> adalah server SA-MP Roleplay Indonesia yang mengutamakan realism, kenyamanan bermain, dan komunitas solid. Dibangun dengan sistem stabil, anti-cheat, dan fitur premium untuk pengalaman RP terbaik.</p>
+  <p><strong>Dream Catcher Roleplay</strong> adalah server SA-MP Roleplay Indonesia dengan fokus realism, sistem stabil, dan komunitas berkualitas tinggi.</p>
   <br>
-  <p>© 2025 Dream Catcher Roleplay. All Rights Reserved. By Reyy Development
-  </p>
+  <p>© 2025 Dream Catcher Roleplay • All Rights Reserved</p>
 </footer>
 
 <script>
-  // PARTICLE BACKGROUND
-  const c=document.getElementById('bg'),x=c.getContext('2d');
-  let w,h,p=[];function r(){w=c.width=window.innerWidth;h=c.height=window.innerHeight}
-  window.onresize=r;r();
-  for(let i=0;i<80;i++)p.push({x:Math.random()*w,y:Math.random()*h,v:Math.random()*1+0.5});
-  function a(){x.clearRect(0,0,w,h);x.fillStyle='rgba(0,255,136,.7)';p.forEach(o=>{x.beginPath();x.arc(o.x,o.y,2,0,7);x.fill();o.y-=o.v;if(o.y<0)o.y=h});requestAnimationFrame(a)}a();
+// background particles
+const c=document.getElementById('bg'),x=c.getContext('2d');let w,h,p=[];
+function r(){w=c.width=window.innerWidth;h=c.height=window.innerHeight}
+window.onresize=r;r();
+for(let i=0;i<90;i++)p.push({x:Math.random()*w,y:Math.random()*h,v:Math.random()*1+0.5});
+(function a(){x.clearRect(0,0,w,h);x.fillStyle='rgba(0,255,136,.7)';p.forEach(o=>{x.beginPath();x.arc(o.x,o.y,2,0,7);x.fill();o.y-=o.v;if(o.y<0)o.y=h});requestAnimationFrame(a)})();
 
-  // REAL SERVER STATS (public samp api)
-  async function loadStats(){
-    try{
-      const res = await fetch('https://api.sampquery.com/server/127.0.0.1:7777');
-      const d = await res.json();
-      document.getElementById('online').innerText = d.players;
-      document.querySelector('#ip').innerText = d.ip+':'+d.port;
-    } catch(e){console.log('Stats offline')}
-  }
-  loadStats();setInterval(loadStats,5000);
-
-  function joinSAMP(){
-    window.location.href = 'samp://127.0.0.1:7777';
-  }
-
-  function joinSAMP() {
-    navigator.clipboard.writeText(document.getElementById('ip').innerText);
-    alert('IP server disalin! Buka SA-MP dan paste IP-nya');
-  }
-
-  // fake live stats animation
-  setInterval(() => {
-    const online = document.getElementById('online');
-    let value = Math.floor(120 + Math.random() * 20);
-    online.innerText = value;
-  }, 3000);
+// real server stats (ganti IP)
+async function stats(){
+ try{
+  const r=await fetch('https://api.sampquery.com/server/IP:PORT');
+  const d=await r.json();
+  player.innerText=d.players;
+  ping.innerText=d.ping+' ms';
+ }catch(e){status.innerText='OFFLINE'}
+}
+stats();setInterval(stats,5000);
 </script>
 
 </body>
